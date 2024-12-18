@@ -10,7 +10,7 @@ import java.util.List;
 public class BaiDangBO {
     private BaiDangDAO baiDangDAO;
 
-    public BaiDangBO(Connection connection) {
+    public BaiDangBO() {
         this.baiDangDAO = new BaiDangDAO();
     }
 

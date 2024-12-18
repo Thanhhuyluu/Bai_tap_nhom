@@ -8,9 +8,9 @@ public class BaiDang {
     private int maDiaDiem;
     private String moTaBaiDang;
     private int maNguoiDang;
+    private String hinhAnh;
     
-    
-	public BaiDang(int maBaiDang, String tenBaiDang, int maDiaDiem, String moTaBaiDang, int maNguoiDang
+	public BaiDang(int maBaiDang, String tenBaiDang, int maDiaDiem, String moTaBaiDang, int maNguoiDang, String hinhAnh
 			) {
 		super();
 		this.maBaiDang = maBaiDang;
@@ -18,6 +18,7 @@ public class BaiDang {
 		this.maDiaDiem = maDiaDiem;
 		this.moTaBaiDang = moTaBaiDang;
 		this.maNguoiDang = maNguoiDang;
+		this.hinhAnh = hinhAnh;
 	}
 	public int getMaBaiDang() {
 		return maBaiDang;
@@ -48,6 +49,12 @@ public class BaiDang {
 	}
 	public void setMaNguoiDang(int maNguoiDang) {
 		this.maNguoiDang = maNguoiDang;
+	}
+	public String getHinhAnh() {
+		return hinhAnh;
+	}
+	public void setHinhAnh(String hinhAnh) {
+		this.hinhAnh = hinhAnh;
 	}
 	
     

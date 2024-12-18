@@ -9,37 +9,44 @@ public class NguoiDungDAO {
     private Connection conn;
 
     public NguoiDungDAO() {
-        conn = DBConnection.getConnection();  // Kết nối với cơ sở dữ liệu
+        conn = JDBCUtils.getConnection();  // Kết nối với cơ sở dữ liệu
     }
     
- // Kiểm tra thông tin đăng nhập của admin
-    public boolean checkLoginDAO(String username, String password) throws SQLException {
-        String query = "SELECT * FROM nguoi_dung WHERE ten_nguoi_dung = ? AND mat_khau = ? AND vai_tro = 1"; // vai_tro = 1 cho admin
+  
+    
+ // Kiểm tra thông tin đăng nhập
+    public boolean checkLogin(String email, String password) throws SQLException {
+        String query = "SELECT * FROM nguoi_dung WHERE email = ? AND mat_khau = ?";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setString(1, username);
+            ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-            return rs.next(); 
+            return rs.next();
         }
     }
 
- // Kiểm tra sự tồn tại của người dùng theo tên người dùng
-    public boolean isUsernameExists(String username) throws SQLException {
-        String query = "SELECT COUNT(*) FROM nguoi_dung WHERE ten_nguoi_dung = ?";
-        
+    // Kiểm tra sự tồn tại của email
+    public boolean isEmailExists(String email) throws SQLException {
+        String query = "SELECT * FROM nguoi_dung WHERE email = ?";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setString(1, username);
+            ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
-            
-            if (rs.next()) {
-                return rs.getInt(1) > 0; 
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new SQLException("Error checking if username exists", e);
+            return rs.next();
         }
-        return false; 
     }
+
+    // Thêm người dùng mới
+    public void insertUser(NguoiDung nguoiDung) throws SQLException {
+        String query = "INSERT INTO nguoi_dung (ten_nguoi_dung,vai_tro, mat_khau, email) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, nguoiDung.getTenNguoiDung());
+            ps.setInt(2, nguoiDung.getVaiTro());
+            ps.setString(3, nguoiDung.getMatKhau());
+            ps.setString(4, nguoiDung.getEmail());
+            ps.executeUpdate();
+        }
+    }
+
 
     // Lấy tất cả người dùng
     public List<NguoiDung> getAll() throws SQLException {

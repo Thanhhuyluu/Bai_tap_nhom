@@ -14,14 +14,23 @@ public class NguoiDungBO {
         this.nguoiDungDAO = new NguoiDungDAO();
     }
     
-    // Kiểm tra thông tin đăng nhập của admin
-    public boolean checkLogin(String username, String password) throws SQLException {
-        return nguoiDungDAO.checkLoginDAO(username, password);
+ // Kiểm tra thông tin đăng nhập
+    public boolean checkLogin(String email, String password) throws SQLException {
+        return nguoiDungDAO.checkLogin(email, password);
     }
-    
-    // Kiểm tra sự tồn tại của người dùng theo tên người dùng
-    public boolean isUsernameExists(String username) throws SQLException {
-        return nguoiDungDAO.isUsernameExists(username); 
+
+    // Kiểm tra sự tồn tại của email
+    public boolean isEmailExists(String email) throws SQLException {
+        return nguoiDungDAO.isEmailExists(email);
+    }
+
+    // Thêm người dùng mới
+    public boolean registerUser(NguoiDung nguoiDung) throws SQLException {
+        if (isEmailExists(nguoiDung.getEmail())) {
+            return false; // Email đã tồn tại
+        }
+        nguoiDungDAO.insertUser(nguoiDung);
+        return true;
     }
 
     // Lấy tất cả người dùng

@@ -15,6 +15,14 @@ public class NguoiDung {
 	        this.matKhau = matKhau;
 	        this.email = email;
 	    }
+	    
+	    public NguoiDung(String tenNguoiDung,int vaiTro, String email, String matKhau) {
+	        this.tenNguoiDung = tenNguoiDung;
+	        this.email = email;
+	        this.matKhau = matKhau;
+	        this.vaiTro = vaiTro;
+	    }
+
 
 	    // Getter and Setter
 	    public int getMaNguoiDung() {

@@ -11,7 +11,7 @@
 <body>
     <div class="main">
 
-        <form action="" method="POST" class="form" id="form-2">
+        <form action="${pageContext.request.contextPath}/login" method="POST" class="form" id="form-2">
           <h3 class="heading">Đăng nhập</h3>
           
   
@@ -29,7 +29,7 @@
             <span class="form-message"></span>
           </div>
   
-          <button class="form-submit">Đăng nhập</button>
+          <button type="submit" class="form-submit">Đăng nhập</button>
         </form>
   
     </div>
