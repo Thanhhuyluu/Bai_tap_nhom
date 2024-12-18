@@ -28,7 +28,7 @@ public class HomeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		response.sendRedirect("/TourismRecommendationSystem/home.jsp");
+		response.sendRedirect("/TourismRecommendationSystem/login.jsp");
 	}
 
 	/**
