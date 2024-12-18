@@ -9,7 +9,7 @@ import java.util.List;
 public class ChuyenMucBO {
     private ChuyenMucDAO chuyenMucDAO;
 
-    public ChuyenMucBO(Connection connection) {
+    public ChuyenMucBO() {
         this.chuyenMucDAO = new ChuyenMucDAO();
     }
 

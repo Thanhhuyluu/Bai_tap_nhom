@@ -20,6 +20,20 @@ public class BaiDang {
 		this.maNguoiDang = maNguoiDang;
 		this.hinhAnh = hinhAnh;
 	}
+	
+	
+	
+	public BaiDang(String tenBaiDang, int maDiaDiem, String moTaBaiDang, int maNguoiDang, String hinhAnh) {
+		super();
+		this.tenBaiDang = tenBaiDang;
+		this.maDiaDiem = maDiaDiem;
+		this.moTaBaiDang = moTaBaiDang;
+		this.maNguoiDang = maNguoiDang;
+		this.hinhAnh = hinhAnh;
+	}
+
+
+
 	public int getMaBaiDang() {
 		return maBaiDang;
 	}

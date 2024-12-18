@@ -59,10 +59,10 @@ public class BaiDangDAO {
 
 
     // Thêm mới bài đăng
-    public void insert(BaiDang baiDang) throws SQLException {
+    public int insert(BaiDang baiDang) throws SQLException {
         String sql = "INSERT INTO bai_dang (ten_bai_dang, ma_dia_diem, mo_ta_bai_dang, ma_nguoi_dang, hinh_anh) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = JDBCUtils.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
+             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, baiDang.getTenBaiDang());
             stmt.setInt(2, baiDang.getMaDiaDiem());
@@ -70,6 +70,12 @@ public class BaiDangDAO {
             stmt.setInt(4, baiDang.getMaNguoiDang());
             stmt.setString(5,baiDang.getHinhAnh());
             stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            int baiDangId = 0;
+            if (rs.next()) {
+                baiDangId = rs.getInt(1); // Lấy ID tự sinh
+            }
+            return baiDangId;
         }
     }
 

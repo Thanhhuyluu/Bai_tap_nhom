@@ -23,8 +23,8 @@ public class BaiDangBO {
     	return baiDangDAO.getById(maBaiDang);
     }
     
-    public void addBaiDang(BaiDang baiDang) throws SQLException {
-        baiDangDAO.insert(baiDang);
+    public int addBaiDang(BaiDang baiDang) throws SQLException {
+        return baiDangDAO.insert(baiDang);
     }
 
     public void updateBaiDang(BaiDang baiDang) throws SQLException {

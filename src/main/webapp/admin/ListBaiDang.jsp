@@ -75,11 +75,11 @@ ArrayList<KhuVuc> khuVucList = (ArrayList<KhuVuc>) request.getAttribute("khuVucL
                 for(BaiDang b : list) {
                 %>
                 
-                <tr>
-                    <td><a href="#"><%=b.getMaBaiDang() %></a></td>
-                    <td><%=b.getMaDiaDiem() %></td>
+                <tr> 
+                	<td><%=b.getMaBaiDang() %></td>
+                    <td><a href="#"><%=b.getTenBaiDang() %></a></td>
+                     <td><%=b.getMaDiaDiem()%></td>
                     <td><%=b.getMaNguoiDang() %></td>
-                    <td><%=b.getTenBaiDang() %></td>
                     <td>
                         <span class="action-icons">
                             <a href="#" class="action-icon-link"><i class="fa-solid fa-circle-info"></i></a>

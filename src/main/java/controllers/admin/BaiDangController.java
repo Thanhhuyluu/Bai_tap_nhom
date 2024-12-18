@@ -12,8 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.bean.BaiDang;
+import model.bean.ChuyenMuc;
+import model.bean.DiaDiem;
 import model.bean.KhuVuc;
 import model.bo.BaiDangBO;
+import model.bo.ChuyenMucBO;
+import model.bo.DiaDiemBO;
 import model.bo.KhuVucBO;
 
 /**
@@ -48,10 +52,20 @@ public class BaiDangController extends HttpServlet {
 		    XemBaiDang(request, response);
 		    break;
 		case "/admin-xu-ly-them-bai-dang":
-		    XuLyThem(request, response);
+		    try {
+				XuLyThem(request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		    break;
 		case "/admin-them-bai-dang":
-		    ThemBaiDang(request, response);
+		    try {
+				ThemBaiDang(request, response);
+			} catch (IOException | ServletException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		    break;
 		default:
 		    XemBaiDang(request, response);
@@ -61,27 +75,59 @@ public class BaiDangController extends HttpServlet {
 	}
 
 	
-	private void ThemBaiDang(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	private void ThemBaiDang(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
 		
 		List<KhuVuc> khuVucList = new ArrayList<KhuVuc>();
-
+		List<DiaDiem> diaDiemList = new ArrayList<DiaDiem>();
 		KhuVucBO khuVucBO = new KhuVucBO();
+		DiaDiemBO diaDiemBO = new DiaDiemBO();
 		try {
 			khuVucList = khuVucBO.getAllKhuVuc();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+		diaDiemList = diaDiemBO.getAllDiaDiem();
 
+		request.setAttribute("diaDiemList", diaDiemList);
 		request.setAttribute("khuVucList", khuVucList);
+		
 		request.getRequestDispatcher("/admin/them_bai_dang_form.jsp").forward(request, response);
 	}
 
-	private void XuLyThem(HttpServletRequest request, HttpServletResponse response) {
+	private void XuLyThem(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		String tenBaiDang = request.getParameter("post-title");
 		String moTaBaiDang = request.getParameter("description");
-		//int maKhuVuc = Integer.parseInt(request.getParameter("region"));
-		System.out.print(tenBaiDang + " " + moTaBaiDang );
+		int maKhuVuc = Integer.parseInt(request.getParameter("region"));
+		String hinhAnh = request.getParameter("img");
+		
+		int maDiaDiem = Integer.parseInt(request.getParameter("diaDiem"));
+		
+		// Sửa thêm id người dùng vào
+		
+		BaiDang baiDang = new BaiDang(tenBaiDang, maDiaDiem, moTaBaiDang, 1	, hinhAnh);
+		
+		BaiDangBO baiDangBO = new BaiDangBO();
+		int idBaiDang = baiDangBO.addBaiDang(baiDang);
+		
+		
+		String[] tenChuyenMuc = request.getParameterValues("topic-name[]");
+
+		String[] moTaChuyenMuc = request.getParameterValues("topic-description[]");
+		
+		String[] hinhAnhChuyenMuc = request.getParameterValues("topic-image[]");
+		
+		List<ChuyenMuc> chuyenMucList = new ArrayList<ChuyenMuc>();
+		
+		ChuyenMucBO chuyenMucBO = new ChuyenMucBO();
+		for(int i = 0; i < tenChuyenMuc.length; i++) {
+			ChuyenMuc chuyenMuc = new ChuyenMuc(idBaiDang, tenChuyenMuc[i], moTaChuyenMuc[i], hinhAnhChuyenMuc[i]);
+			System.out.println(chuyenMuc.getMoTa());
+			chuyenMucBO.addChuyenMuc(chuyenMuc);
+		}
+		
+		
+		System.out.print(tenBaiDang + " " + moTaBaiDang + " " + maKhuVuc);
 		
 	}
 
@@ -105,7 +151,6 @@ public class BaiDangController extends HttpServlet {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} 
-
 					request.setAttribute("khuVucList", khuVucList);
 					request.setAttribute("list", list);
 					request.getRequestDispatcher("/admin/ListBaiDang.jsp").forward(request, response);
@@ -117,7 +162,8 @@ public class BaiDangController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		
+		request.setCharacterEncoding("UTF-8");
+		doGet(request, response);
 	}
 
 }

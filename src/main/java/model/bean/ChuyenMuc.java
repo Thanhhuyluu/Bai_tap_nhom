@@ -15,6 +15,13 @@ public class ChuyenMuc {
         this.hinhAnh = hinhAnh;
     }
     
+    public ChuyenMuc(int maBaiDang, String tenChuyenMuc, String moTa, String hinhAnh) {
+    	 this.maBaiDang = maBaiDang;
+         this.tenChuyenMuc = tenChuyenMuc;
+         this.moTa = moTa;
+         this.hinhAnh = hinhAnh;
+    }
+    
 	public int getMaChuyenMuc() {
 		return maChuyenMuc;
 	}

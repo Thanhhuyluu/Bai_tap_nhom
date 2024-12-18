@@ -1,5 +1,8 @@
+<%@page import="model.bean.DiaDiem"%>
 <%@page import="model.bean.KhuVuc"%>
 <%@page import="java.util.ArrayList"%>
+<%@ page import="com.google.gson.Gson" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,10 +18,11 @@
 	<%
 	
 	ArrayList<KhuVuc> khuVucList = (ArrayList<KhuVuc>) request.getAttribute("khuVucList");
+	ArrayList<DiaDiem> diaDiemList = (ArrayList<DiaDiem>) request.getAttribute("diaDiemList");
 	%>
     <div class="container">
         <h2>Thêm Bài Đăng Du Lịch</h2>
-        <form class="add-form" action="${pageContext.request.contextPath}/admin-xu-ly-them-bai-dang" method="POST" enctype="multipart/form-data">
+        <form class="add-form" action="${pageContext.request.contextPath}/admin-xu-ly-them-bai-dang" method="POST">
 
             <div class="form-group">
                 <label for="post-title">Tên Bài Đăng</label>
@@ -38,8 +42,19 @@
                     
                     <%} %>
                 </select>
+                
             </div>
-
+            <div class="form-group">
+                <label for="diaDiem">Chọn địa điểm</label>
+                <select id="diaDiem" name="diaDiem" required>
+				    <option value="-1" selected>Chọn địa điểm</option>
+				</select>
+                
+            </div>
+			<div class="form-group">
+              		<label for="img">Hình Ảnh Bài Đăng</label>
+                    <input type="file" id="img" name="img">
+            </div>          
 
             <div class="form-group">
                 <label for="description">Mô Tả Địa Điểm</label>
@@ -74,7 +89,33 @@
     </div>
 
     <script>
-        
+   		 const diaDiemData = <%= new Gson().toJson(diaDiemList) %>;
+   		 
+   		 document.addEventListener("DOMContentLoaded", function () {
+   	        const regionSelect = document.getElementById("region");
+   	        const diaDiemSelect = document.getElementById("diaDiem");
+
+   	        regionSelect.addEventListener("change", function () {
+   	            const selectedRegion = parseInt(this.value);
+
+   	            // Xóa các tùy chọn hiện tại trong dropdown Địa điểm
+   	            diaDiemSelect.innerHTML = '<option value="-1" selected>Chọn địa điểm</option>';
+
+   	            // Lọc danh sách địa điểm theo khu vực được chọn
+   	            diaDiemData.forEach(diaDiem => {
+   	                if (diaDiem.maKhuVuc === selectedRegion) {
+   	                    const option = document.createElement("option");
+   	                    option.value = diaDiem.maDiaDiem;
+   	                    option.textContent = diaDiem.tenDiaDiem;
+   	                    diaDiemSelect.appendChild(option);
+   	                }
+   	            });
+   	        });
+   	    });
+   		 
+   		 
+   		 
+   		 
         const addTopicBtn = document.getElementById("add-topic-btn");
         const topicContainer = document.getElementById("topic-container");
         let topicCount = 1;
