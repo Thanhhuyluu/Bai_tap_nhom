@@ -23,7 +23,7 @@ import model.bo.KhuVucBO;
 /**
  * Servlet implementation class BaiDangController
  */
-@WebServlet( urlPatterns = { "/admin-xem-bai-dang", "/admin-xu-ly-them-bai-dang" , "/admin-them-bai-dang" , "/admin-xoa-bai-dang", "/admin-sua-bai-dang", "/admin-xu-ly-sua-bai-dang","/admin-xem-chi-tiet-bai-dang"})
+@WebServlet( urlPatterns = { "/admin-xem-bai-dang", "/admin-xu-ly-them-bai-dang" , "/admin-them-bai-dang" , "/admin-xoa-bai-dang", "/admin-sua-bai-dang", "/admin-xu-ly-sua-bai-dang","/admin-xem-chi-tiet-bai-dang", "/admin-tim-kiem"})
 public class BaiDangController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -102,6 +102,14 @@ public class BaiDangController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		case "/admin-tim-kiem":
+			try {
+				TimKiem(request,response);
+			} catch (SQLException | ServletException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 		default:
 		    XemBaiDang(request, response);
 		    break;
@@ -110,6 +118,20 @@ public class BaiDangController extends HttpServlet {
 	}
 
 	
+	private void TimKiem(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+		String search = request.getParameter("search");
+
+		BaiDangBO baiDangBO = new BaiDangBO();
+		
+		List<BaiDang> list = baiDangBO.getBySearch(search);
+		request.setAttribute("list", list);
+		request.setAttribute("search", search);
+		request.getRequestDispatcher("/admin/ListBaiDang.jsp").forward(request, response);
+
+		
+		
+	}
+
 	private void XemChiTietBaiBang(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException, ClassNotFoundException {
 		int maBaiDang = Integer.parseInt(request.getParameter("maBaiDang"));
 

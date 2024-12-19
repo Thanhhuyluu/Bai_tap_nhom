@@ -1,6 +1,5 @@
-<%@page import="model.bean.KhuVuc"%>
+<%@page import="model.bean.*"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.bean.BaiDang"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -21,7 +20,8 @@
 
 <%
 
-	List<KhuVuc> list = (List<KhuVuc>) request.getAttribute("listKhuVuc");
+List<NguoiDung> list = (List<NguoiDung>) request.getAttribute("listNguoiDung");
+
 %>
 
     <div class="sidebar">
@@ -30,13 +30,13 @@
         </div>
         <ul class="menu">
             <li><a href="${pageContext.request.contextPath}/admin-xem-bai-dang" >Bài đăng</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin-xem-khu-vuc" class="active">Khu Vực</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin-xem-nguoi-dung">Người dùng</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin-xem-khu-vuc" >Khu Vực</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin-xem-nguoi-dung" class="active">Người dùng</a></li>
             <li><a href="${pageContext.request.contextPath}/logout">Đăng xuất</a></li>
         </ul>
     </div>
     <div class="container">
-        <h2 >Tất cả Khu Vực</h2>
+        <h2 >Tất cả người dùng</h2>
         <form action="${pageContext.request.contextPath}/admin-tim-kiem" class="search-container">
 		    <input type="text" placeholder="Search" class="search-input">
 		   
@@ -50,26 +50,32 @@
         <table>
             <thead>
                 <tr>
-                    <th>Mã khu vực</th>
-                    <th>Tên khu vực</th>                   
+                    <th>Mã người dùng</th>
+                    <th>Tên người dùng</th>
+                    <th>Vai trò</th>
+                    <th>Mật khẩu</th>
+                    <th>Email</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
             <tbody>
                 <%
                 if(list == null) list = new ArrayList();
-                for(KhuVuc kv : list) {
+                for(NguoiDung nd : list) {
                 %>
                 
                 <tr> 
-                	<td><%=kv.getMaKhuVuc() %></td>
-                    <td><a href="#"><%=kv.getTenKhuVuc() %></a></td>
+                	<td><%=nd.getMaNguoiDung() %></td>
+                    <td><a href="#"><%=nd.getTenNguoiDung() %></a></td>
+                     <td><%= nd.getVaiTro()%></td>
+                    <td><%= nd.getMatKhau() %></td>
+                    <td><%= nd.getEmail() %></td>
                     <td>
                         <span class="action-icons">
                             
-                            <a href="${pageContext.request.contextPath}/admin-sua-khu-vuc?maKhuVuc=<%= kv.getMaKhuVuc() %>" class="action-icon-link"><i class="fa-solid fa-pen-to-square"></i></a>
-                        	<a onclick="return confirm('Bạn có chắc chắn muốn xóa khu vực này không?');" 
-							   href="${pageContext.request.contextPath}/admin-xoa-khu-vuc?maKhuVuc=<%= kv.getMaKhuVuc() %>" 
+                            <a href="${pageContext.request.contextPath}/admin-sua-nguoi-dung?maNguoiDung=<%= nd.getMaNguoiDung() %>" class="action-icon-link"><i class="fa-solid fa-pen-to-square"></i></a>
+                        	<a onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này không?');" 
+							   href="${pageContext.request.contextPath}/admin-xoa-nguoi-dung?maNguoiDung=<%= nd.getMaNguoiDung() %>" 
 							   class="action-icon-link">
 							   <i class="fa-solid fa-trash"></i>
 							</a>

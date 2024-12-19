@@ -34,4 +34,8 @@ public class BaiDangBO {
     public void deleteBaiDang(int maBaiDang) throws SQLException {
         baiDangDAO.delete(maBaiDang);
     }
+    
+    public List<BaiDang> getBySearch(String search) throws SQLException {
+    	return baiDangDAO.getBySearch(search);
+    }
 }

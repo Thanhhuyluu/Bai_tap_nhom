@@ -30,17 +30,33 @@ ArrayList<KhuVuc> khuVucList = (ArrayList<KhuVuc>) request.getAttribute("khuVucL
             <h2 class="main-heading">TraReSys</h2>
         </div>
         <ul class="menu">
-            <li><a href="#" class="active">Bài đăng</a></li>
-            <li><a href="#">Khu Vực</a></li>
-            <li><a href="#">Người dùng</a></li>
-            <li><a href="#">Đăng xuất</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin-xem-bai-dang" class="active">Bài đăng</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin-xem-khu-vuc" >Khu Vực</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin-xem-nguoi-dung">Người dùng</a></li>
+            <li><a href="${pageContext.request.contextPath}/logout">Đăng xuất</a></li>
         </ul>
     </div>
     <div class="container">
         <h2 >Tất cả bài đăng</h2>
         <form action="${pageContext.request.contextPath}/admin-tim-kiem" class="search-container">
-		    <input type="text" placeholder="Search" class="search-input">
-		   
+        
+        	<% 
+
+			String search = (String) request.getAttribute("search");
+        	if(search != null) {
+        	
+        	%>
+        
+        
+		    <input type="text" placeholder="Search" class="search-input" name="search" value="<%=search %>" >
+		   	
+		   	<%}else { %>
+		   	
+		   	
+		    <input type="text" placeholder="Search" class="search-input" name="search" >
+		    
+		   	<% }%>
+		   	
 		    <button class="search-button">
 		        <i class="fa-solid fa-magnifying-glass"></i>
 		    </button>

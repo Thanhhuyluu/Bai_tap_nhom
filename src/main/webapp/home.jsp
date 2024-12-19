@@ -22,19 +22,29 @@
             </div>
 
             <!-- Header Search Section -->
-            <div class="header-search">
-                <input type="text" class="search-input" placeholder="Search">
-                <select class="location-dropdown">
-                    <option value="" disabled selected>Select Location</option>
-                    <option value="paris">Paris</option>
-                    <option value="newyork">New York</option>
-                    <option value="tokyo">Tokyo</option>
-                    <option value="sydney">Sydney</option>
-                </select>
+            <form action="${pageContext.request.contextPath}/trang-chu" class="header-search">
+            
+            
+            <% 
+
+			String search = (String) request.getAttribute("search");
+        	if(search != null) {
+        	
+        	%>
+        
+        
+		   	<input type="text" class="search-input" placeholder="Search" name="search" value="<%=search %>">
+		   	<%}else { %>
+		   	
+		   	
+		 	<input type="text" class="search-input" placeholder="Search" name="search">
+		    
+		   	<% }%>
+            
                 <button class="search-button">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-            </div>
+            </form>
 
             <nav class="nav-links">
                 <a class="nav-link active" href="trang-chu">Destinations</a>
@@ -51,6 +61,11 @@
                 <a href="${pageContext.request.contextPath}/login.jsp"class="sign-in-btn">Login</a>
             </div>
             
+            <%}else{ %>
+            <div class="header-actions">
+                <a href="${pageContext.request.contextPath}/logout"class="sign-in-btn">Logout</a>
+                
+            </div>
             <%} %>
         </div>
         

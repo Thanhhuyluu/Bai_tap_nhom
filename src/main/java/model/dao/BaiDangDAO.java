@@ -32,6 +32,34 @@ public class BaiDangDAO {
         return list;
     }
     
+    public List<BaiDang> getBySearch(String search) throws SQLException {
+        List<BaiDang> list = new ArrayList<>();
+        String sql = "SELECT * FROM bai_dang WHERE ten_bai_dang LIKE ?";
+        
+        try (Connection connection = JDBCUtils.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + search + "%");
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int maBaiDang = rs.getInt("ma_bai_dang");
+                    String tenBaiDang = rs.getString("ten_bai_dang");
+                    int maDiaDiem = rs.getInt("ma_dia_diem");
+                    String moTa = rs.getString("mo_ta_bai_dang");
+                    int maNguoiDang = rs.getInt("ma_nguoi_dang");
+                    String hinhAnh = rs.getString("hinh_anh");
+                  
+                    BaiDang baiDang = new BaiDang(maBaiDang, tenBaiDang, maDiaDiem, moTa, maNguoiDang, hinhAnh);
+                    list.add(baiDang);
+                }
+            }
+        }
+        return list;
+    }
+
+    
+    
     // Lấy bài đăng theo ID
     public BaiDang getById(int maBaiDang) throws SQLException {
         String sql = "SELECT * FROM bai_dang WHERE ma_bai_dang = ?";

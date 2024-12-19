@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm Bài Đăng</title>
+    <title>Xem Bài Đăng</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/them_bai_dang_form.css">
 </head>
 <body>
@@ -27,7 +27,7 @@
 	ArrayList<ChuyenMuc> chuyenMucList = (ArrayList<ChuyenMuc>) request.getAttribute("chuyenMucList");
 	%>
     <div class="container">
-        <h2>Sửa Bài Đăng</h2>
+        <h2>Xem Bài Đăng</h2>
         <form class="add-form" action="${pageContext.request.contextPath}/admin-xu-ly-sua-bai-dang" method="POST">
   			<input type="text"  name="maBaiDang" hidden value="<%=baiDang.getMaBaiDang()%>">
             <div class="form-group">

@@ -34,9 +34,13 @@ public class HomeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		BaiDangBO baiDangBO = new BaiDangBO();
+		
+		String search =request.getParameter("search");
+		if(search == null) search = "";
 		try {
-			List<BaiDang> listBaiDang =  baiDangBO.getAllBaiDang();
+			List<BaiDang> listBaiDang =  baiDangBO.getBySearch(search);
 			request.setAttribute("listBaiDang", listBaiDang);
+			request.setAttribute("search", search);
 			request.getRequestDispatcher("home.jsp").forward(request, response);
 		} catch (SQLException e) {
 			// TODO: handle exception
