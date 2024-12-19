@@ -51,7 +51,10 @@
           Validator.minLength('#password', 6),
         ],
         onSubmit: function (data) {
-          console.log(data);
+        	const form = document.querySelector('#form-2');
+	        if (form) {
+	          form.submit(); // Gửi form
+	        }
         }
       });
     });

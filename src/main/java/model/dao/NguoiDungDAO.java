@@ -24,6 +24,33 @@ public class NguoiDungDAO {
             return rs.next();
         }
     }
+    
+    public NguoiDung getByEmailAndPassword(String email, String password) throws SQLException {
+    	NguoiDung nguoiDung =null;
+
+        String query = "SELECT * FROM nguoi_dung WHERE email = ? AND mat_khau = ?";
+        try {
+        	PreparedStatement ps = conn.prepareStatement(query);
+        	 ps.setString(1, email);
+             ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+        	
+            while (rs.next()) {
+                 nguoiDung = new NguoiDung(
+                        rs.getInt("ma_nguoi_dung"),
+                        rs.getString("ten_nguoi_dung"),
+                        rs.getInt("vai_tro"),
+                        rs.getString("mat_khau"),
+                        rs.getString("email")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error while fetching data from NguoiDung table.", e);
+        }
+        return nguoiDung;
+    }
+
 
     // Kiểm tra sự tồn tại của email
     public boolean isEmailExists(String email) throws SQLException {

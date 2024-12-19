@@ -37,16 +37,21 @@
             </div>
 
             <nav class="nav-links">
-                <a class="nav-link active" href="#">Destinations</a>
-                <a class="nav-link" href="#">Things to Do</a>
-                <a class="nav-link" href="#">Forums</a>
+                <a class="nav-link active" href="trang-chu">Destinations</a>
             </nav>
-
+			<%
+			if(session.getAttribute("userId") == null) {
+				
+			
+			
+			%>
 
             <div class="header-actions">
-                <a href="#">Review</a>
-                <button class="sign-in-btn">Sign in</button>
+                <a href="${pageContext.request.contextPath}/register.jsp"class="sign-in-btn">Sign in</a>
+                <a href="${pageContext.request.contextPath}/login.jsp"class="sign-in-btn">Login</a>
             </div>
+            
+            <%} %>
         </div>
         
     </header>

@@ -1,5 +1,6 @@
 package controllers;
 
+import model.bean.NguoiDung;
 import model.bo.NguoiDungBO;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -30,8 +31,16 @@ public class LoginServlet extends HttpServlet {
         try {
             if (nguoiDungBO.checkLogin(email, password)) {
                 // Đăng nhập thành công
+            	
+            	NguoiDung nguoiDung = nguoiDungBO.getByEmailAndPassword(email, password);
+            	
+            	request.getSession().setAttribute("userId", nguoiDung.getMaNguoiDung());
                 request.getSession().setAttribute("user", email);
-                response.sendRedirect("home.jsp");
+                
+                if(nguoiDung.getVaiTro() == 1) 
+                    response.sendRedirect("admin-xem-bai-dang");
+                else 
+                response.sendRedirect("trang-chu");
             } else {
                 // Đăng nhập thất bại
                 request.setAttribute("error", "Email hoặc mật khẩu không đúng!");

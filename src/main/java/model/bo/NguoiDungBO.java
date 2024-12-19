@@ -52,5 +52,7 @@ public class NguoiDungBO {
     public void deleteNguoiDung(int maNguoiDung) throws SQLException {
         nguoiDungDAO.delete(maNguoiDung);
     }
-   
+    public NguoiDung getByEmailAndPassword(String email, String password) throws SQLException  {
+    	return nguoiDungDAO.getByEmailAndPassword(email, password);
+    }
 }
