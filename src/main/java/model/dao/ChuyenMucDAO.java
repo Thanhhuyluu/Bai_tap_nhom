@@ -101,5 +101,15 @@ public class ChuyenMucDAO {
         }
         return list;
     }
+    
+    public void deleteByMaBaiDang(int maBaiDang) throws SQLException {
+        String sql = "DELETE FROM chuyen_muc WHERE ma_bai_dang = ?";
+        try (Connection connection = connect();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, maBaiDang);
+            stmt.executeUpdate();
+        }
+    }
 
 }

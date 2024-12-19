@@ -1,6 +1,8 @@
 package model.dao;
 
 import model.bean.DiaDiem;
+import model.bean.KhuVuc;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,4 +115,30 @@ public class DiaDiemDAO {
         }
         return diaDiems; // Trả về danh sách địa điểm tìm được
     }
+    
+
+
+    public DiaDiem getById(int maDiaDiem) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT * FROM dia_diem WHERE ma_dia_diem = ?";
+        DiaDiem diaDiem = null;
+        
+        try (Connection connection = JDBCUtils.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, maDiaDiem);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                	diaDiem = new DiaDiem(
+                            rs.getInt("ma_dia_diem"),
+                            rs.getInt("ma_khu_vuc"),
+                            rs.getString("ten_dia_diem")
+                    );
+                }
+            }
+        }
+        return diaDiem;
+    }
+
+
+    
 }

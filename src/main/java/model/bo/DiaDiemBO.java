@@ -43,4 +43,8 @@ public class DiaDiemBO {
     public boolean checkIfDiaDiemExists(String tenDiaDiem) throws SQLException {
         return diaDiemDAO.exists(tenDiaDiem); 
     }
+    
+    public DiaDiem getById(int maDiaDiem) throws ClassNotFoundException, SQLException {
+    	return diaDiemDAO.getById(maDiaDiem);
+    }
 }

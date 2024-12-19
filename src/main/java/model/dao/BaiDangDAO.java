@@ -89,8 +89,8 @@ public class BaiDangDAO {
             stmt.setInt(2, baiDang.getMaDiaDiem());
             stmt.setString(3, baiDang.getMoTaBaiDang());
             stmt.setInt(4, baiDang.getMaNguoiDang());
-            stmt.setInt(5, baiDang.getMaBaiDang());
-            stmt.setString(6, baiDang.getHinhAnh());
+            stmt.setString(5, baiDang.getHinhAnh());
+            stmt.setInt(6, baiDang.getMaBaiDang());
             stmt.executeUpdate();
         }
     }

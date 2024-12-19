@@ -21,7 +21,6 @@
 
 <%
 
-List<BaiDang> list = (List<BaiDang>) request.getAttribute("list");
 ArrayList<KhuVuc> khuVucList = (ArrayList<KhuVuc>) request.getAttribute("khuVucList");
 %>
 

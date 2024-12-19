@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="model.bean.*"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,7 +80,7 @@
        
         <section class="place-list">
            
-            <h2 class="place-list-heading">Địa điểm được tìm thấy</h2>
+            <%-- <h2 class="place-list-heading">Địa điểm được tìm thấy</h2>
             <!-- Place Item -->
             <div class="place-item">
                 <img src="${pageContext.request.contextPath}/img/img1.jpg" alt="Place 1">
@@ -108,8 +110,28 @@
                     </h2>
                     <p>Bali is a living postcard, an Indonesian paradise that feels like a fantasy. Soak up the sun on a stretch of fine white sand, or commune with the tropical creatures as you dive along coral ridges or the colorful wreck of a WWII war ship. On shore, the lush jungle shelters stone temples and mischievous monkeys. The “artistic capital” of Ubud is the perfect place to see a cultural dance performance, take a batik or silver-smithing workshop, or invigorate your mind and body in a yoga class.</p>
                 </div>
-            </div>
-
+            </div> --%>
+			
+			<%
+				List<BaiDang> listBaiDang = (List<BaiDang>) request.getAttribute("listBaiDang");
+			
+				if (listBaiDang != null){
+					for (BaiDang bd : listBaiDang){
+			%>
+						<div class="place-item">
+		                <img src="<%=bd.getHinhAnh() %>" alt="Place 1">
+		                <div class="place-details">
+		                    <h2>
+		                        <%-- <a href="${pageContext.request.contextPath}/postDetail?id=${bd.maBaiDang}" class="place-item-link"><%= bd.getTenBaiDang() %></a> --%>
+		                        <a href="${pageContext.request.contextPath}/postDetail?id=<%= bd.getMaBaiDang() %>" class="place-item-link"><%= bd.getTenBaiDang() %></a>
+		                    </h2>
+		                    <p><%= bd.getMoTaBaiDang() %></p>
+		                </div>
+		            </div>
+		     <%
+					}
+				}
+			%>
            
 
         </section>

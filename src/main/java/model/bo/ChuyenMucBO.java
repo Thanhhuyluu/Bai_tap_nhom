@@ -32,4 +32,11 @@ public class ChuyenMucBO {
     public void deleteChuyenMuc(int maChuyenMuc) throws SQLException {
         chuyenMucDAO.delete(maChuyenMuc);
     }
+    
+    public List<ChuyenMuc> getAllByMaBaiDang(int maBaiDang) throws SQLException {
+    	return chuyenMucDAO.getAllByMaBaiDang(maBaiDang);
+    }
+    public void deleteByMaBaiDang(int maBaiDang) throws SQLException {
+    	chuyenMucDAO.deleteByMaBaiDang(maBaiDang);
+    }
 }

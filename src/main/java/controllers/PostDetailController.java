@@ -1,29 +1,31 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.bean.BaiDang;
+import model.bean.ChuyenMuc;
 import model.bo.BaiDangBO;
-import model.bean.*;
+import model.bo.ChuyenMucBO;
 
 /**
- * Servlet implementation class HomeController
+ * Servlet implementation class PostDetailController
  */
-@WebServlet("/trang-chu")
-public class HomeController extends HttpServlet {
+@WebServlet("/postDetail")
+public class PostDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HomeController() {
+    public PostDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,18 +34,28 @@ public class HomeController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		int maBaiDang = Integer.parseInt(request.getParameter("id"));
+		
 		BaiDangBO baiDangBO = new BaiDangBO();
+		ChuyenMucBO chuyenMucBO = new ChuyenMucBO();
+		
 		try {
-			List<BaiDang> listBaiDang =  baiDangBO.getAllBaiDang();
-			request.setAttribute("listBaiDang", listBaiDang);
-			request.getRequestDispatcher("home.jsp").forward(request, response);
-		} catch (SQLException e) {
+			BaiDang baiDang = baiDangBO.getBaiDangByID(maBaiDang);
+			List<ChuyenMuc> listChuyenMuc = chuyenMucBO.getAllByMaBaiDang(maBaiDang);
+			
+			request.setAttribute("baiDang", baiDang);
+			request.setAttribute("listChuyenMuc", listChuyenMuc);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/post_detail.jsp");
+            dispatcher.forward(request, response);
+		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error retrieving posts");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error fetching post details.");
 		}
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
